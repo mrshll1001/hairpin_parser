@@ -14,7 +14,7 @@ Requires BeautifulSoup 4 and Python 3.
 ## Usage
 Download this script anywhere on your machine. Usually in its own folder.
 
-Open a terminal, navigate to the script's location and enter
+Open a terminal, navigate to the script's location and enter the following to give the script permission to execute
 
     sudo chmod +x parser.py
 
@@ -29,4 +29,4 @@ Current version estimated to take ~2 hrs total time.
 
 ## TODO
 + Download local copies of the images and rewrite the img tags inside the articles to match the new file.
-+ Render into an epub template
++ Render archive into an epub template for usage on e-readers
