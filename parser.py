@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from urllib.request import urlopen
+from urllib.request import urlretrieve
 from datetime import datetime
 from bs4 import BeautifulSoup
 from string import Template
@@ -9,6 +10,15 @@ import os
 
 PAGE_COUNT = 0
 ARTICLE_COUNT = 0
+# =============================================
+# Downloads an image into the file system and renames it.
+# Returns the reference to the new filepath
+# =============================================
+def downloadImagefromUrl(url):
+    return None;
+
+
+
 
 # =============================================
 # Prints a nice done message
@@ -36,6 +46,8 @@ def getArticleUrlsFromPage(soup):
     # Return array
     return urls
 
+
+
 # =============================================
 # Parse a single article and return the contents
 # in a map
@@ -60,7 +72,11 @@ def parseArticleFromUrl(url):
     # Get the Post Body
     article_data['body'] = soup.find("div", class_ = "post__body")
 
-    # We want to remove the extra guff at the end
+    # Download any image files contained in the article
+    img_tags = article_data['body'].findAll('img')
+
+    for img_tag in img_tags:
+        print(img_tag.get('src'))
 
 
     # print(post_body.findAll('p'))
@@ -164,20 +180,19 @@ def init():
     # Create a nice subfolder for the articles to live in :-)
     if(not os.path.isdir("articles")):
         os.mkdir("articles")
+    # and the images
+    if(not os.path.isdir("articles/img")):
+        os.mkdir("articles/img")
 
     # Run the program
-    downloadArticlesOnPage(index_url)
+    # downloadArticlesOnPage(index_url)
 
-# def test():
-#     page_url = "https://www.thehairpin.com/page/4"
-#
-#     # Get soup for the page
-#     page = urlopen(page_url)
-#     soup = BeautifulSoup(page, "lxml")
-#
-#     # Loop over article urls
-#     for url in getArticleUrlsFromPage(soup):
-#         article_data = parseArticleFromUrl(url)
-#         print(article_data['title'].get_text())
+def test():
+    url = "https://www.thehairpin.com/2017/12/watching-alyssa-milano-grow-up/"
 
-init()
+    url2 = "https://www.thehairpin.com/2017/12/lace-underwear-that-was-sexy-until-all-your-pubes-poked-through-it/"
+
+    # article_data = parseArticleFromUrl(url)
+    article_data = parseArticleFromUrl(url)
+
+test()
